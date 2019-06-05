@@ -6,52 +6,41 @@
 
 int main(int argc, char *argv[])
 {
-	char mem[50000];
-	char vol[50000];
-	char in[50000];
-	uint16_t memcur = 0;
-	uint16_t volcur = 0;
-	uint16_t incur = 0;
-
-	for (int i=0;i<50000;i++) {
-		mem[i] = 0;
-		vol[i] = 0;
-		in[i] = EOF;
-	}
+	uint8_t *mem = malloc(50000);
+	uint8_t *vol = malloc(50000);
+	memset(mem, 0, 50000);
+	memset(vol, 0, 50000);
 
 	if (argc > 1) {
 		strcpy(vol, argv[1]);
 	}
-	if (argc > 2) {
-		strcpy(in, argv[2]);
-	}
 
-	while(vol[volcur]) {
-		switch(vol[volcur]) {
+	while(*vol) {
+		switch(*vol) {
 			case '+':
-			mem[memcur]++;
+			(*mem)++;
 			break;
 			case '-':
-			mem[memcur]--;
+			(*mem)--;
 			break;
 			case '>':
-			memcur++;
+			mem++;
 			break;
 			case '<':
-			memcur--;
+			mem--;
 			break;
 			case '.':
-			printf("%c", mem[memcur]);
+			putchar(*mem);
 			break;
 			case ',':
-				mem[memcur] = in[incur++];
+				*mem = getchar();
 			break;
 			case '[':
-			if (mem[memcur] == 0) {
+			if (*mem == 0) {
 				int pairs = 1;
 				while (pairs > 0) {
-					volcur++;
-					switch(vol[volcur]) {
+					vol++;
+					switch(*vol) {
 						case '[':
 						pairs++;
 						break;
@@ -63,11 +52,11 @@ int main(int argc, char *argv[])
 			}
 			break;
 			case ']':
-			if (mem[memcur] != 0) {
+			if (*mem != 0) {
 				int pairs = 1;
 				while (pairs > 0) {
-					volcur--;
-					switch(vol[volcur]) {
+					vol--;
+					switch(*vol) {
 						case ']':
 						pairs++;
 						break;
@@ -79,7 +68,7 @@ int main(int argc, char *argv[])
 			}
 			break;
 		}
-		volcur++;
+		vol++;
 	}
 	return 0;
 }
