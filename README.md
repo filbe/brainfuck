@@ -1,5 +1,5 @@
 # brainfuck
-Brainfuck interpreter in C and Node.js, without using pointers
+Brainfuck interpreter in C and Node.js
 
 ## Compiling:
 
