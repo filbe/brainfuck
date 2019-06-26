@@ -1,19 +1,8 @@
-function stringprint(str) {
-	if (Array.isArray(str)) {
-		str = "" + str.join("");
-	}
-	for (var i = 0; i < str.length; i++) {
-		if (str.charAt(i) == 0) {
-			break;
-		}
-		process.stdout.write(String.fromCharCode(str.charAt(i)));
-	}
-}
 var codemem = [];
 var progmem = [];
 var inmem =   [];
 for (var i = 0; i < 30000; i++) {
-	codemem[i] = '0';
+	codemem[i] = 0;
 	progmem[i] = 0;
 	inmem[i] = 0;
 }
@@ -91,14 +80,11 @@ while (codemem[codecursor] != '0') {
 							brackets--;
 							break;
 					}
-					//console.log(codecursor);
 				}
 			}
 			break;
 	}
 	codecursor++;
 }
-stringprint(progmem);
-console.log(""); // line break
 console.log("---------------------------");
 console.log("--------TERMINATED!--------");
