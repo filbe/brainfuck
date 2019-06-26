@@ -8,11 +8,17 @@ int main(int argc, char *argv[])
 {
 	uint8_t *mem = malloc(50000);
 	uint8_t *vol = malloc(50000);
+	uint8_t *in = malloc(50000);
+
 	memset(mem, 0, 50000);
 	memset(vol, 0, 50000);
+	memset(in, 0, 50000);
 
 	if (argc > 1) {
 		strcpy(vol, argv[1]);
+	}
+	if (argc > 2) {
+		strcpy(in, argv[2]);
 	}
 
 	while(*vol) {
@@ -33,7 +39,8 @@ int main(int argc, char *argv[])
 			putchar(*mem);
 			break;
 			case ',':
-				*mem = getchar();
+				*mem = *in;
+				in++;
 			break;
 			case '[':
 			if (*mem == 0) {
