@@ -1,73 +1,94 @@
+/*
+ * Brainfuck interpreter in C
+ *
+ * Authors:
+ *  Ville-Pekka Lahti <vp@wdr.fi>
+ */
 
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#define PGMEMSIZE 30000
+
 int main(int argc, char *argv[])
 {
-	uint8_t *mem = malloc(50000);
-	uint8_t *vol = malloc(50000);
-	uint8_t *in = malloc(50000);
+	uint8_t *mem = malloc(PGMEMSIZE); // brainfuck program memory
+	uint8_t *vol = malloc(PGMEMSIZE); // brainfuck code memory
+	uint8_t *in = malloc(PGMEMSIZE); // input buffer
 
-	memset(mem, 0, 50000);
-	memset(vol, 0, 50000);
-	memset(in, 0, 50000);
+	// initializing memory
+	memset(mem, 0, PGMEMSIZE);
+	memset(vol, 0, PGMEMSIZE);
+	memset(in, 0, PGMEMSIZE);
 
+	// put bf code from commandline argument
 	if (argc > 1) {
 		strcpy(vol, argv[1]);
 	}
+
+	// put input from commandline argument
 	if (argc > 2) {
 		strcpy(in, argv[2]);
 	}
 
-	while(*vol) {
-		switch(*vol) {
-			case '+':
+	while (*vol) {
+		switch (*vol) {
+		case '+':
+			// increment of memory at current place
 			(*mem)++;
 			break;
-			case '-':
+		case '-':
+			// decrement of memory at current place
 			(*mem)--;
 			break;
-			case '>':
+		case '>':
+			// move the pointer one step right
 			mem++;
 			break;
-			case '<':
+		case '<':
+			// move the pointer one step left
 			mem--;
 			break;
-			case '.':
+		case '.':
+			// print a char at current memptr place
 			putchar(*mem);
 			break;
-			case ',':
-				*mem = *in;
-				in++;
+		case ',':
+			// put a char from input buffer to mem. could've been done with getchar()
+			*mem = *in;
+			in++;
 			break;
-			case '[':
+		case '[':
+
 			if (*mem == 0) {
+				// skip a block [ ] if current place of memory is zero
 				int pairs = 1;
 				while (pairs > 0) {
 					vol++;
-					switch(*vol) {
-						case '[':
+					switch (*vol) {
+					case '[':
 						pairs++;
 						break;
-						case ']':
+					case ']':
 						pairs--;
 						break;
 					}
 				}
 			}
 			break;
-			case ']':
+		case ']':
+			// jump to the beginning of a block [ ] if current place of memory is nonzero
 			if (*mem != 0) {
 				int pairs = 1;
 				while (pairs > 0) {
 					vol--;
-					switch(*vol) {
-						case ']':
+					switch (*vol) {
+					case ']':
 						pairs++;
 						break;
-						case '[':
+					case '[':
 						pairs--;
 						break;
 					}
