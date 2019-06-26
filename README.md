@@ -1,5 +1,5 @@
 # brainfuck
-Brainfuck interpreter in C, without using pointers
+Brainfuck interpreter in C and Node.js, without using pointers
 
 ## Compiling:
 
@@ -7,15 +7,29 @@ Brainfuck interpreter in C, without using pointers
 gcc brainfuck.c -o brainfuck
 ```
 
-## Example: HelloWorld!
+## Example run: HelloWorld!
 
+### C:
 ```bash
 ./brainfuck "++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>."
 ```
 
-## Example: Bubble sort
+### Node.js:
 
+```bash
+nodejs bf.js "++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>."
+```
+
+## Example run: Bubble sort
+
+### C:
 ```
 ./brainfuck ">>,[>>,]<<[[<<]>>>>[<<[>+<<+>-]>>[>+<<<<[->]>[<]>>-]<<<[[-]>>[>+<-]>>[<<<+>>>-]]>>[[<+>-]>>]<]<<[>>+<<-]<<]>>>>[.>>]" asddsadfsafasfd
+
+```
+
+### Node.js
+```
+nodejs bf.js ">>,[>>,]<<[[<<]>>>>[<<[>+<<+>-]>>[>+<<<<[->]>[<]>>-]<<<[[-]>>[>+<-]>>[<<<+>>>-]]>>[[<+>-]>>]<]<<[>>+<<-]<<]>>>>[.>>]" asddsadfsafasfd
 
 ```
